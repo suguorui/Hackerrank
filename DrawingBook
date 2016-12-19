@@ -1,0 +1,16 @@
+#https://www.hackerrank.com/contests/w27/challenges/drawing-book/copy-from/8192091
+
+#!/bin/python3
+
+import sys
+
+
+n = int(input().strip())
+p = int(input().strip())
+# your code goes here
+
+# compare page no. required for both cases: p/2 (front), and (n-p)/2 (back)
+# remember to int the result
+
+print(int(min((p/2), ((n-p)/2))))
+
