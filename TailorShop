@@ -1,0 +1,34 @@
+#https://www.hackerrank.com/contests/w27/challenges/tailor-shop
+
+import math
+
+n, p = input().strip().split(' ')
+n, p = [int(n), int(p)]
+a = [int(a_temp) for a_temp in input().strip().split(' ')]
+
+NofButtons = []
+for price in a:
+    if price >= p:
+        NofButtons.append(math.ceil(price/p))
+    else:
+        NofButtons.append(0)
+
+NofButtons.sort()
+
+if price > 10**5:
+    print('Pay cannot be greater than 10**5')
+
+MinTotalButtons = 0
+
+for i in range(len(NofButtons)-1):
+    if NofButtons[i] > 0:
+        if NofButtons[i+1] == NofButtons[i]:
+            NofButtons[i+1] += 1
+    else:
+        continue
+
+for element in NofButtons:
+    MinTotalButtons += element
+
+print(MinTotalButtons)
+# print(NofButtons)
