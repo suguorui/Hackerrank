@@ -7,28 +7,22 @@ n, p = [int(n), int(p)]
 a = [int(a_temp) for a_temp in input().strip().split(' ')]
 
 NofButtons = []
-for price in a:
-    if price >= p:
-        NofButtons.append(math.ceil(price/p))
-    else:
-        NofButtons.append(0)
+
+for a_temp in a:
+    NofButtons.append(math.ceil(a_temp/p))
 
 NofButtons.sort()
+print(NofButtons)
 
-if price > 10**5:
-    print('Pay cannot be greater than 10**5')
-
-MinTotalButtons = 0
+# compare NofButtons[i] and NofButtons[i+1]
+# if NofButtons[i+1]>NofButtons[1], continue
+# if NofButtons[i+1]<=NofButtons[1], use NofButtons[i]+1
 
 for i in range(len(NofButtons)-1):
-    if NofButtons[i] > 0:
-        if NofButtons[i+1] == NofButtons[i]:
-            NofButtons[i+1] += 1
-    else:
+    if NofButtons[i+1] > NofButtons[i]:
         continue
+    else:
+        NofButtons[i+1] = NofButtons[i] + 1
 
-for element in NofButtons:
-    MinTotalButtons += element
-
-print(MinTotalButtons)
-# print(NofButtons)
+print(sum(NofButtons))
+print(NofButtons)
