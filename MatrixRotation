@@ -1,0 +1,59 @@
+# -*- coding: utf-8 -*-
+'''
+    Hackonacci Matrix Rotations
+    Hackerrank w27 Challenge 3
+    '''
+# https://www.hackerrank.com/contests/w27/challenges/hackonacci-matrix-rotations
+
+# below codes are provided
+
+n, q = input().strip().split(' ')
+n, q = [int(n), int(q)]
+for a0 in range(q):
+    angle = int(input().strip())
+
+# my code goes here
+
+
+# Define Hackonacci function
+
+
+def hack(x):
+    k = [1, 2, 3]
+    while len(k)<x:
+        result = k[-1]+2*k[-2]+3*k[-3]
+        k.append(result)
+    return k[-1]
+
+# Define Hackonacci Matrix
+
+
+def matrix(n):
+    M = [[hack((i*j)**2) for i in range(1, n+1)] for j in range(1, n+1)]
+    for i in range(n):
+        for j in range(n):
+            if (M[i][j]) % 2 == 0:
+                M[i][j] = 'X'
+            else:
+                M[i][j] = 'Y'
+    return M
+
+
+def rotate(matrix, n, angle):
+    RotateTime = angle/90
+    newM = matrix(n)
+    while RotateTime > 0:
+        newM = list(zip(*newM[::-1]))
+        RotateTime -= 1
+    return newM
+
+# compare new matrix with initial
+
+difcount = 0
+finalM = rotate(matrix, n, angle)
+for i in range(n):
+    for j in range(n):
+        if finalM[i][j] != matrix(n)[i][j]:
+            difcount += 1
+                
+print(difcount)
