@@ -1,59 +1,46 @@
-# -*- coding: utf-8 -*-
-'''
-    Hackonacci Matrix Rotations
-    Hackerrank w27 Challenge 3
-    '''
-# https://www.hackerrank.com/contests/w27/challenges/hackonacci-matrix-rotations
+#!/bin/python
 
-# below codes are provided
+import sys
 
-n, q = input().strip().split(' ')
-n, q = [int(n), int(q)]
+hackonacci = [1,1,0,1,0,0,1]
+
+def calculate_matrix(n):
+    m = []
+    m.append([])
+    for i in range(1, n+1):
+        line = []
+        line.append(0)
+        for j in range(1, n+1):
+            line.append(hackonacci[(i*i*j*j)%7])
+        m.append(line)
+    return m
+
+def get_result(matrix, rotation):
+    count = 0
+    for i in range(1, n+1):
+       for j in range(1, n+1):
+         if matrix[i][j] != get_rotated(matrix, i, j, rotation):
+            count += 1
+    return count
+
+def get_rotated(matrix, i, j, rotation):
+    n = len(matrix)-1
+    if rotation == 1:
+       return matrix[n+1-j][i]
+    if rotation == 2:
+       return matrix[n+1-i][n+1-j]
+    if rotation == 3:
+       return matrix[j][n+1-i]
+    return matrix[i][j]
+
+n,q = input().strip().split(' ')
+n,q = [int(n),int(q)]
+matrix = calculate_matrix(n)
+cache = [0, -1 , -1, -1]
 for a0 in range(q):
     angle = int(input().strip())
-
-# my code goes here
-
-
-# Define Hackonacci function
-
-
-def hack(x):
-    k = [1, 2, 3]
-    while len(k)<x:
-        result = k[-1]+2*k[-2]+3*k[-3]
-        k.append(result)
-    return k[-1]
-
-# Define Hackonacci Matrix
-
-
-def matrix(n):
-    M = [[hack((i*j)**2) for i in range(1, n+1)] for j in range(1, n+1)]
-    for i in range(n):
-        for j in range(n):
-            if (M[i][j]) % 2 == 0:
-                M[i][j] = 'X'
-            else:
-                M[i][j] = 'Y'
-    return M
-
-
-def rotate(matrix, n, angle):
-    RotateTime = angle/90
-    newM = matrix(n)
-    while RotateTime > 0:
-        newM = list(zip(*newM[::-1]))
-        RotateTime -= 1
-    return newM
-
-# compare new matrix with initial
-
-difcount = 0
-finalM = rotate(matrix, n, angle)
-for i in range(n):
-    for j in range(n):
-        if finalM[i][j] != matrix(n)[i][j]:
-            difcount += 1
-                
-print(difcount)
+    # your code goes here
+    rotation = int((angle/90) % 4)
+    if cache[rotation] == -1:
+        cache[rotation] = get_result(matrix, rotation)
+    print(cache[rotation])
