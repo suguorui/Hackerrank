@@ -1,0 +1,10 @@
+#Steve has a string, , consisting of  lowercase English alphabetic letters. In one operation, he can delete any pair of adjacent letters with same value. For example, string "aabcc" would become either "aab" or "bcc" after operation.
+#https://www.hackerrank.com/challenges/reduced-string?utm_source=101hack45-reminder-24hrs&amp;utm_medium=email&amp;utm_campaign=101hack45
+
+import re
+s, regex = raw_input().strip(), re.compile(r'(\w)(\1)')
+match = regex.search(s)
+while match:    
+    s = s.replace(match.group(),'')        
+    match = regex.search(s)
+print s if s else 'Empty String'
