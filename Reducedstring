@@ -1,3 +1,4 @@
+#Solution 1
 #Steve has a string, , consisting of  lowercase English alphabetic letters. In one operation, he can delete any pair of adjacent letters with same value. For example, string "aabcc" would become either "aab" or "bcc" after operation.
 #https://www.hackerrank.com/challenges/reduced-string?utm_source=101hack45-reminder-24hrs&amp;utm_medium=email&amp;utm_campaign=101hack45
 
@@ -8,3 +9,23 @@ while match:
     s = s.replace(match.group(),'')        
     match = regex.search(s)
 print s if s else 'Empty String'
+
+
+#Solution 2
+s = input().strip()
+inputlist = list(s)
+i = 0
+
+while i<(len(inputlist)-1):
+    if inputlist[i] == inputlist[i+1]:
+        del inputlist[i]
+        del inputlist[i]
+        i = 0
+    else:
+        i += 1
+if len(inputlist)>0:
+    print(''.join(inputlist) )
+else:
+    print('Empty String')
+                
+            
